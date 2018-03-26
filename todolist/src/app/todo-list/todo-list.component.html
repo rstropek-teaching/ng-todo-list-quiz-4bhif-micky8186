@@ -1,0 +1,40 @@
+<!-- Routes -->
+<button [routerLink]="['/add-todo']">Add Todo</button>
+<button [routerLink]="['/people']">View People</button>
+<br>
+
+<!-- Filters -->
+<label for="show-only-undone">Show Only Undone Todo's</label>
+<input id="show-only-undone" name="showOnlyUndone" [(ngModel)]="showOnlyUndone" type="checkbox">
+<br>
+
+<label for="user-to-show">User to show:</label>
+<select id="user-to-show" name="userToShow" [(ngModel)]="userToShow">
+  <option value="">All</option>
+  <option *ngFor="let person of people | async" ng-value="person.name">{{person.name}}</option>
+</select>
+<br>
+
+<!-- Todo Table -->
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Assigned To</th>
+    <th>Is Done?</th>
+  </tr>
+  <!-- This Workaround here is just ridiculous! -->
+  <tr *ngFor="let item of todoItems">
+    <td *ngIf="(!showOnlyUndone || !item.done) && (userToShow === item.assignedTo || !userToShow)">{{ item.description }}</td>
+    <td *ngIf="(!showOnlyUndone || !item.done) && (userToShow === item.assignedTo || !userToShow)">{{ item.assignedTo }}</td>
+    <td *ngIf="(!showOnlyUndone || !item.done) && (userToShow === item.assignedTo || !userToShow)">{{ (item.done)?'Yes':'No' }}</td>
+    <td *ngIf="(!showOnlyUndone || !item.done) && (userToShow === item.assignedTo || !userToShow)">
+      <button (click)="markAsDone(item.id)" [disabled]="item.done">Done</button>
+    </td>
+    <td *ngIf="(!showOnlyUndone || !item.done) && (userToShow === item.assignedTo || !userToShow)">
+      <button routerLink="/edit/{{item.id}}">Edit</button>
+    </td>
+    <td *ngIf="(!showOnlyUndone || !item.done) && (userToShow === item.assignedTo || !userToShow)">
+      <button (click)="deleteTodo(item.id)">Delete</button>
+    </td>
+  </tr>
+</table>

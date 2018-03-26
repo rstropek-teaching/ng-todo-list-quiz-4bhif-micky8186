@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <td>Description:</td>
+    <td><input type="text" value="description" [(ngModel)]="description"></td>
+  </tr>
+  <tr>
+    <td>Assigned To:</td>
+    <td>
+      <select [(ngModel)]="assignedTo" value="Nobody">
+        <option value="Nobody">Nobody</option>
+        <option *ngFor="let person of people | async" value="{{person.name}}">{{person.name}}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>Done</td>
+    <td><input type="checkbox" id="done" name="done" [(ngModel)]="doneTick"></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><button (click)="save()">Save</button></td>
+  </tr>
+</table>

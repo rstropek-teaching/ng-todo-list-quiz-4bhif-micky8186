@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <td>Description:</td>
+    <td><input type="text" [(ngModel)]="description"></td>
+  </tr>
+  <tr>
+    <td>Assigned To:</td>
+    <td>
+      <select [(ngModel)]="assignedTo" value="Nobody">
+        <option value="Nobody" selected>Nobody</option>
+        <option *ngFor="let person of people | async" value="{{person.name}}">{{person.name}}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><button (click)="addTodo()">Send</button></td>
+  </tr>
+</table>
